@@ -1,2 +1,2 @@
-# Computational_Geometry_2021
-Project for Computational Geometry class @UNIMI 2020/2021
+# Computational-Geometry
+Project for the course of Computational Geometry 2020/2021 at UNIMI

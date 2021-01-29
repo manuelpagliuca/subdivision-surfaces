@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Computational_Geometry", "Computational_Geometry\Computational_Geometry.vcxproj", "{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|Win32.Build.0 = Debug|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|x64.ActiveCfg = Debug|x64
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|x64.Build.0 = Debug|x64
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|x86.ActiveCfg = Debug|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Debug|x86.Build.0 = Debug|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|Win32.ActiveCfg = Release|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|Win32.Build.0 = Release|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|x64.ActiveCfg = Release|x64
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|x64.Build.0 = Release|x64
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|x86.ActiveCfg = Release|Win32
+		{17D01AD4-D425-48AE-A06A-7343BEC2CDFD}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {677EB2CB-55AA-4E49-8756-FD92C7F20C58}
+	EndGlobalSection
+EndGlobal
