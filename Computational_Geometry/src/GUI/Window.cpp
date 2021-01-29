@@ -32,12 +32,10 @@ int Window::initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	if (m_fullscreen)
-	{
+	if (m_fullscreen) {
 		window = glfwCreateWindow(m_width, m_height, m_windowTitle, glfwGetPrimaryMonitor(), nullptr);
 	}
-	else
-	{
+	else {
 		window = glfwCreateWindow(m_width, m_height, m_windowTitle, nullptr, nullptr);
 	}
 
