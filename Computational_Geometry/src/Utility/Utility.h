@@ -30,7 +30,7 @@ inline bool approximatelyEqual(const float& a, const float& b, const float& epsi
 	return (std::fabs(a - b) <= (std::max(std::fabs(a), std::fabs(b)) * epsilon));
 }
 
-// Enable to select the fullscreen mode and the caching of the gui positions.
+//Enable to select the fullscreen mode and the caching of the gui positions.
 static int runSettingsWindow(Window& resWindow)
 {
 	if (!resWindow.initialise())

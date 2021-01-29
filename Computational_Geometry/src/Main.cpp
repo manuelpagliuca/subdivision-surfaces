@@ -11,17 +11,18 @@
 #include "Shader/Shader.h"
 #include "GUI/GUI.h"
 #include "Scene/Scene.h"
-#include "GUI/SettingsWindow.h"
 
 int main()
 {
 	// Settings window
-	SettingsWindow settingsWindow;
-	const int res = settingsWindow.run();
+	Window resWindow;
+	resWindow = Window("Resolution settings", 400, 100, false);
 
-	if (res == EXIT_FAILURE)
+	const int code = runSettingsWindow(resWindow);
+
+	if (code == EXIT_FAILURE)
 		return EXIT_FAILURE;
-	else if (res == EXIT_SUCCESS)
+	else if (code == EXIT_SUCCESS)
 		return EXIT_SUCCESS;
 
 	// App Window

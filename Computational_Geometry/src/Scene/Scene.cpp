@@ -43,19 +43,31 @@ void Scene::renderScene(const float deltaTime, std::map<int, ObjectGUIParams>& o
 			glUniformMatrix4fv(uniformModelMatrix, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 			glUniformMatrix4fv(uniformProjectionMatrix, 1, GL_FALSE, glm::value_ptr(m_projectionMatrix));
 
-			// send triang-tessellation levels
-			glUniform1f(uniformTriangTessInnerLevel1, static_cast<float>(tessParams.innerLevel1));
-			glUniform1f(uniformTriangTessOuterLevel1, static_cast<float>(tessParams.outerLevel1));
-			glUniform1f(uniformTriangTessOuterLevel2, static_cast<float>(tessParams.outerLevel2));
-			glUniform1f(uniformTriangTessOuterLevel3, static_cast<float>(tessParams.outerLevel3));
+			if (tessParams.selectedShader == shader::TRIANG_TESS_SHADER)
+			{
+				// send triang-tessellation levels
+				glUniform1f(uniformTriangTessInnerLevel1, static_cast<float>(tessParams.innerLevel1));
+				glUniform1f(uniformTriangTessOuterLevel1, static_cast<float>(tessParams.outerLevel1));
+				glUniform1f(uniformTriangTessOuterLevel2, static_cast<float>(tessParams.outerLevel2));
+				glUniform1f(uniformTriangTessOuterLevel3, static_cast<float>(tessParams.outerLevel3));
 
-			// send quad-tessellation levels
-			glUniform1f(uniformQuadTessInnerLevel1, static_cast<float>(tessParams.innerLevel1));
-			glUniform1f(uniformQuadTessInnerLevel2, static_cast<float>(tessParams.innerLevel2));
-			glUniform1f(uniformQuadTessOuterLevel1, static_cast<float>(tessParams.outerLevel1));
-			glUniform1f(uniformQuadTessOuterLevel2, static_cast<float>(tessParams.outerLevel2));
-			glUniform1f(uniformQuadTessOuterLevel3, static_cast<float>(tessParams.outerLevel3));
-			glUniform1f(uniformQuadTessOuterLevel4, static_cast<float>(tessParams.outerLevel4));
+				// send color for barycentric x-coord
+				glUniform1i(uniformBarycentricColorX, objectParams[i].x_tess_color);
+				glUniform1i(uniformBarycentricColorY, objectParams[i].y_tess_color);
+				glUniform1i(uniformBarycentricColorZ, objectParams[i].z_tess_color);
+
+			}
+
+			if (tessParams.selectedShader == shader::QUADS_TESS_SHADER)
+			{
+				// send quad-tessellation levels
+				glUniform1f(uniformQuadTessInnerLevel1, static_cast<float>(tessParams.innerLevel1));
+				glUniform1f(uniformQuadTessInnerLevel2, static_cast<float>(tessParams.innerLevel2));
+				glUniform1f(uniformQuadTessOuterLevel1, static_cast<float>(tessParams.outerLevel1));
+				glUniform1f(uniformQuadTessOuterLevel2, static_cast<float>(tessParams.outerLevel2));
+				glUniform1f(uniformQuadTessOuterLevel3, static_cast<float>(tessParams.outerLevel3));
+				glUniform1f(uniformQuadTessOuterLevel4, static_cast<float>(tessParams.outerLevel4));
+			}
 
 			// send picked color
 			glUniform4fv(uniformPickedColor, 1, glm::value_ptr(objectParams[i].pickedColor));
@@ -63,10 +75,13 @@ void Scene::renderScene(const float deltaTime, std::map<int, ObjectGUIParams>& o
 			// send color mode
 			glUniform1i(uniformColorMode, objectParams[i].colorMode);
 
-			// send color for barycentric x-coord
-			glUniform1i(uniformBarycentricColorX, objectParams[i].x_tess_color);
-			glUniform1i(uniformBarycentricColorY, objectParams[i].y_tess_color);
-			glUniform1i(uniformBarycentricColorZ, objectParams[i].z_tess_color);
+			if (tessParams.selectedShader == shader::SIMPLE_SHADER)
+			{
+				// send color for barycentric x-coord
+				glUniform1i(uniformBarycentricColorX, 0);
+				glUniform1i(uniformBarycentricColorY, 1);
+				glUniform1i(uniformBarycentricColorZ, 2);
+			}
 
 			switch (i)
 			{
@@ -99,7 +114,7 @@ void Scene::renderScene(const float deltaTime, std::map<int, ObjectGUIParams>& o
 				break;
 			}
 		}
-		
+
 		m_modelMatrix = glm::mat4{ 1.f };
 	}
 }

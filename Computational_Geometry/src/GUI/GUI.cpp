@@ -149,7 +149,7 @@ void GUI::objectsPanel()
 				ImGui::NewLine();
 			}
 
-			if (m_tessParams.selectedShader == shader::TRIANG_TESS_SHADER || m_tessParams.selectedShader == shader::QUADS_TESS_SHADER)
+			if (m_tessParams.selectedShader == shader::TRIANG_TESS_SHADER)
 			{
 				ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Color settings");
 				ImGui::NewLine(); ImGui::SameLine(90); ImGui::RadioButton("Interpolation", &m_objectParams[i].colorMode, 0);
@@ -160,23 +160,49 @@ void GUI::objectsPanel()
 					ImGui::ColorEdit3("Color Picker", (float*)&m_objectParams[i].pickedColor);
 				else
 				{
-					constexpr int labelSpace = 120;
-					ImGui::SameLine(labelSpace); ImGui::Text("Barycentric coordinates");
-					ImGui::NewLine(); ImGui::NewLine(); //-V525
+					if (m_objectParams[i].colorMode)
+						ImGui::ColorEdit3("Color Picker", (float*)&m_objectParams[i].pickedColor);
+					else
+					{
+						constexpr int labelSpace = 120;
+						ImGui::SameLine(labelSpace); ImGui::Text("Barycentric coordinates");
+						ImGui::NewLine(); ImGui::NewLine();
+						ImGui::SameLine(30); ImGui::Combo("Channel order", &selection, "RGB\0RBG\0GRB\0GBR\0BRG\0BGR\0");
 
-					ImGui::SameLine(labelSpace - 30); ImGui::RadioButton("x-Red", &m_objectParams[i].x_tess_color, 0);
-					ImGui::SameLine(labelSpace + 40); ImGui::RadioButton("x-Green", &m_objectParams[i].x_tess_color, 1);
-					ImGui::SameLine(labelSpace + 120); ImGui::RadioButton("x-Blue", &m_objectParams[i].x_tess_color, 2);
-					ImGui::NewLine();
-
-					ImGui::SameLine(labelSpace - 30);  ImGui::RadioButton("y-Red", &m_objectParams[i].y_tess_color, 0);
-					ImGui::SameLine(labelSpace + 40);  ImGui::RadioButton("y-Green", &m_objectParams[i].y_tess_color, 1);
-					ImGui::SameLine(labelSpace + 120); ImGui::RadioButton("y-Blue", &m_objectParams[i].y_tess_color, 2);
-
-					ImGui::NewLine();
-					ImGui::SameLine(labelSpace - 30);  ImGui::RadioButton("z-Red", &m_objectParams[i].z_tess_color, 0);
-					ImGui::SameLine(labelSpace + 40);  ImGui::RadioButton("z-Green", &m_objectParams[i].z_tess_color, 1);
-					ImGui::SameLine(labelSpace + 120); ImGui::RadioButton("z-Blue", &m_objectParams[i].z_tess_color, 2);
+						switch (selection)
+						{
+						case 0:	// RGB
+							m_objectParams[i].x_tess_color = 0;
+							m_objectParams[i].y_tess_color = 1;
+							m_objectParams[i].z_tess_color = 2;
+							break;
+						case 1:	// RBG
+							m_objectParams[i].x_tess_color = 0;
+							m_objectParams[i].y_tess_color = 2;
+							m_objectParams[i].z_tess_color = 1;
+							break;
+						case 2:	// GRB
+							m_objectParams[i].x_tess_color = 1;
+							m_objectParams[i].y_tess_color = 0;
+							m_objectParams[i].z_tess_color = 2;
+							break;
+						case 3: // GBR
+							m_objectParams[i].x_tess_color = 2;
+							m_objectParams[i].y_tess_color = 0;
+							m_objectParams[i].z_tess_color = 1;
+							break;
+						case 4: // BRG
+							m_objectParams[i].x_tess_color = 1;
+							m_objectParams[i].y_tess_color = 2;
+							m_objectParams[i].z_tess_color = 0;
+							break;
+						case 5: // BGR
+							m_objectParams[i].x_tess_color = 2;
+							m_objectParams[i].y_tess_color = 1;
+							m_objectParams[i].z_tess_color = 0;
+							break;
+						}
+					}
 				}
 			}
 		}
@@ -320,7 +346,7 @@ void GUI::menuBar()
 
 void GUI::checkCache()
 {
-	std::ifstream f{"imgui.ini"};
+	std::ifstream f{ "imgui.ini" };
 	if (f.good())
 		m_cache = true;
 	else

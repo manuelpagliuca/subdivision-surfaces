@@ -3,17 +3,17 @@
 /* Handles the changing params of the prism */
 void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool wireframeMode, const unsigned guiIndex, const unsigned meshIndex, const int selectedShader)
 {
-	Prism* oldMesh = reinterpret_cast<Prism*> (m_meshes[meshIndex]);
+	Prism* oldMesh = static_cast<Prism*>(m_meshes[meshIndex]);
 
 	// Handle sector count
 	if (objectParams[guiIndex].prism.sectorCount != oldMesh->getStackCount())
 	{
 		Prism* cylinder = new Prism(
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getBaseRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getTopRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getHeight(),
+			oldMesh->getBaseRadius(),
+			oldMesh->getTopRadius(),
+			oldMesh->getHeight(),
 			objectParams[guiIndex].prism.sectorCount,
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getStackCount());
+			oldMesh->getStackCount());
 
 		cylinder->setSectorCount(objectParams[guiIndex].prism.sectorCount);
 
@@ -27,13 +27,16 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 		delete m_meshes[meshIndex];
 		m_meshes[meshIndex] = cylinder;
 	}
-	if (objectParams[guiIndex].prism.stackCount != reinterpret_cast<Prism*> (m_meshes[meshIndex])->getStackCount())
+	
+	oldMesh = static_cast<Prism*>(m_meshes[meshIndex]);
+
+	if (objectParams[guiIndex].prism.stackCount != oldMesh->getStackCount())
 	{
 		Prism* cylinder = new Prism(
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getBaseRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getTopRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getHeight(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getSectorCount(),
+			oldMesh->getBaseRadius(),
+			oldMesh->getTopRadius(),
+			oldMesh->getHeight(),
+			oldMesh->getSectorCount(),
 			objectParams[guiIndex].prism.stackCount);
 
 		cylinder->setStackCount(objectParams[guiIndex].prism.stackCount);
@@ -48,14 +51,14 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 		delete m_meshes[meshIndex];
 		m_meshes[meshIndex] = cylinder;
 	}
-	if (objectParams[guiIndex].prism.baseRadius != reinterpret_cast<Prism*> (m_meshes[meshIndex])->getBaseRadius())
+	else if (objectParams[guiIndex].prism.baseRadius != oldMesh->getBaseRadius())
 	{
 		Prism* cylinder = new Prism(
 			objectParams[guiIndex].prism.baseRadius,
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getTopRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getHeight(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getSectorCount(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getStackCount());
+			oldMesh->getTopRadius(),
+			oldMesh->getHeight(),
+			oldMesh->getSectorCount(),
+			oldMesh->getStackCount());
 
 		cylinder->setBaseRadius(objectParams[guiIndex].prism.baseRadius);
 
@@ -69,14 +72,14 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 		delete m_meshes[meshIndex];
 		m_meshes[meshIndex] = cylinder;
 	}
-	if (objectParams[guiIndex].prism.topRadius != reinterpret_cast<Prism*> (m_meshes[meshIndex])->getTopRadius())
+	else if (objectParams[guiIndex].prism.topRadius != oldMesh->getTopRadius())
 	{
 		Prism* cylinder = new Prism(
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getBaseRadius(),
+			oldMesh->getBaseRadius(),
 			objectParams[guiIndex].prism.topRadius,
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getHeight(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getSectorCount(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getStackCount());
+			oldMesh->getHeight(),
+			oldMesh->getSectorCount(),
+			oldMesh->getStackCount());
 
 		cylinder->setTopRadius(objectParams[guiIndex].prism.topRadius);
 
@@ -90,14 +93,14 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 		delete m_meshes[meshIndex];
 		m_meshes[meshIndex] = cylinder;
 	}
-	if (objectParams[guiIndex].prism.height != reinterpret_cast<Prism*> (m_meshes[meshIndex])->getHeight())
+	else if (objectParams[guiIndex].prism.height != oldMesh->getHeight())
 	{
 		Prism* cylinder = new Prism(
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getBaseRadius(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getTopRadius(),
+			oldMesh->getBaseRadius(),
+			oldMesh->getTopRadius(),
 			objectParams[guiIndex].prism.height,
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getSectorCount(),
-			reinterpret_cast<Prism*> (m_meshes[meshIndex])->getStackCount());
+			oldMesh->getSectorCount(),
+			oldMesh->getStackCount());
 
 		cylinder->setHeight(objectParams[guiIndex].prism.height);
 
@@ -121,7 +124,7 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 /* handles the icosahedron changing params */
 void Scene::renderIcosahedron(std::map<int, ObjectGUIParams>& objectParams, const bool wireframeMode, const unsigned guiIndex, const unsigned meshIndex, const int selectedShader)
 {
-	Icosahedron* oldMesh = reinterpret_cast<Icosahedron*> (m_meshes[meshIndex]);
+	Icosahedron* oldMesh = static_cast<Icosahedron*> (m_meshes[meshIndex]);
 
 	// Handle subdivision level
 	if (objectParams[guiIndex].icosahedron.subdivisionLevel != oldMesh->getSubdivision())
@@ -201,7 +204,7 @@ void Scene::renderIcosahedron(std::map<int, ObjectGUIParams>& objectParams, cons
 /* Handles torus params */
 void Scene::renderTorus(std::map<int, ObjectGUIParams>& objectParams, const bool wireframeMode, const unsigned guiIndex, const unsigned meshIndex, const int selectedShader)
 {
-	Torus* oldMesh = reinterpret_cast<Torus*>(m_meshes[meshIndex]);
+	Torus* oldMesh = static_cast<Torus*>(m_meshes[meshIndex]);
 
 	if (!approximatelyEqual(objectParams[guiIndex].torus.mainRadius, oldMesh->getMainRadius(), 0.01f))
 	{

@@ -51,6 +51,7 @@ struct ObjectGUIParams {
 	float zPos{ -2.5f };
 
 	/* barycentric color, 0-red 1-green 2-blue */
+	int channelOrder{ 0 };
 	int x_tess_color{ 0 };
 	int y_tess_color{ 1 };
 	int z_tess_color{ 2 };
@@ -116,7 +117,7 @@ public:
 
 	GUI(float t_aspectRatio, int t_width, int t_height) : m_aspectRatio{ t_aspectRatio }, m_width{ t_width }, m_height{ t_height }
 	{
-		checkCache(); 
+		checkCache();
 	}
 
 	~GUI();
@@ -162,4 +163,8 @@ private:
 
 	/* hold tess GUI params*/
 	TessellationGUIParams m_tessParams{};
+
+	/******/
+	int selection{ 0 };
+
 };
