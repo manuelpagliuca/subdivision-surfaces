@@ -4,10 +4,8 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Headers and Dependencies
-Computational_Geometry/Dependencies/
-Computational_Geometry/Dependencies/Debug
-Computational_Geometry/Dependencies/Release
-Computational_Geometry/Headers/imgui
+Computational_Geometry/Dependencies/GLEW
+Computational_Geometry/Dependencies/GLFW
 Computational_Geometry/x64/
 
 # Releases and Debug
