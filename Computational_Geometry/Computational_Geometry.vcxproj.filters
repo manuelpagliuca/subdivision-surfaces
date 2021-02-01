@@ -146,11 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
-    <None Include="Shaders\quad.tesc" />
-    <None Include="Shaders\quad.tese" />
     <None Include="Shaders\shader.frag" />
     <None Include="Shaders\shader.vert" />
-    <None Include="Shaders\triangular.tesc" />
-    <None Include="Shaders\triangular.tese" />
   </ItemGroup>
 </Project>

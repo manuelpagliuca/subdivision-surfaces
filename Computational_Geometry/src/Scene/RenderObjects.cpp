@@ -27,7 +27,7 @@ void Scene::renderPrism(std::map<int, ObjectGUIParams>& objectParams, const bool
 		delete m_meshes[meshIndex];
 		m_meshes[meshIndex] = cylinder;
 	}
-	
+
 	oldMesh = static_cast<Prism*>(m_meshes[meshIndex]);
 
 	if (objectParams[guiIndex].prism.stackCount != oldMesh->getStackCount())

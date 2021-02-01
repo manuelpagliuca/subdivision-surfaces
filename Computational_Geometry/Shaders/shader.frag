@@ -1,19 +1,12 @@
-#version 400 core                     
+#version 330 core                     
 
 uniform vec4 pickedColor;
 uniform int colorMode;
 
 in vec4 vCol;           
-
-in TES_OUT
-{
-    vec4 color;
-} frag_in;
-                  
 out vec4 color;                     
                   
 const int PICKED_COLOR = 1;
-const int COLOR_INTERPOLATED = 0;
 
 void main()                       
 {       	
@@ -21,10 +14,6 @@ void main()
 	{
 		case PICKED_COLOR:
 			color = pickedColor;
-			break;
-
-		case COLOR_INTERPOLATED:
-			color = frag_in.color;
 			break;
 
 		default :

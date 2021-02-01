@@ -89,7 +89,6 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Computational_Geometry\Dependencies\GLFW\include;$(SolutionDir)Computational_Geometry\Dependencies\GLEW\include;$(SolutionDir)Computational_Geometry\Dependencies\GLM;$(SolutionDir)Computational_Geometry\Dependencies\ASSIMP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +106,6 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Computational_Geometry\Dependencies\GLFW\include;$(SolutionDir)Computational_Geometry\Dependencies\GLEW\include;$(SolutionDir)Computational_Geometry\Dependencies\GLM;$(SolutionDir)Computational_Geometry\Dependencies\ASSIMP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -208,11 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
-    <None Include="Shaders\quad.tesc" />
-    <None Include="Shaders\quad.tese" />
     <None Include="Shaders\shader.frag" />
-    <None Include="Shaders\triangular.tesc" />
-    <None Include="Shaders\triangular.tese" />
     <None Include="Shaders\shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

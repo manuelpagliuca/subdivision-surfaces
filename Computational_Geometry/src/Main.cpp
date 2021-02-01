@@ -36,7 +36,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	GUI gui{mainWindow.getAspectRatio(), mainWindow.getWidth(), mainWindow.getHeight()};
+	GUI gui{ mainWindow.getAspectRatio(), mainWindow.getWidth(), mainWindow.getHeight() };
 	gui.setupContext(mainWindow.getWindowObject());
 
 	Scene scene = Scene(mainWindow.getProjectionMatrix());
@@ -58,7 +58,6 @@ int main()
 
 		/* gui panels */
 		gui.objectsPanel();
-		gui.tessPanel();
 		gui.shaderPanel();
 		gui.menuBar();
 

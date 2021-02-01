@@ -55,7 +55,6 @@ void Scene::renderScene(const float deltaTime, std::map<int, ObjectGUIParams>& o
 				glUniform1i(uniformBarycentricColorX, objectParams[i].x_tess_color);
 				glUniform1i(uniformBarycentricColorY, objectParams[i].y_tess_color);
 				glUniform1i(uniformBarycentricColorZ, objectParams[i].z_tess_color);
-
 			}
 
 			if (tessParams.selectedShader == shader::QUADS_TESS_SHADER)
@@ -155,10 +154,4 @@ void Scene::loadSceneShaders()
 {
 	/* vertex-fragment shader */
 	m_shaders.push_back(new Shader(source::vShader, source::fShader));
-
-	/* vertex-tcs-tss-fragment shader (triangular primitive) */
-	m_shaders.push_back(new Shader(source::vShader, source::triangularTCS, source::triangularTES, source::fShader));
-
-	/* vertex-tcs-tss-fragment shader (quad primitive) */
-	m_shaders.push_back(new Shader(source::vShader, source::quadTCS, source::quadTES, source::fShader));
 }

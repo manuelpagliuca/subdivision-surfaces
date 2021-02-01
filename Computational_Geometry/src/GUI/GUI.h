@@ -87,7 +87,7 @@ struct ObjectGUIParams {
 
 /* editable data from user for tessellation */
 struct TessellationGUIParams {
-	int selectedShader{ 1 };
+	int selectedShader{ 0 };
 
 	int outerLevel1{ 1 };
 	int	outerLevel2{ 1 };
@@ -128,7 +128,6 @@ public:
 	void destroyContext() const;
 
 	void objectsPanel();
-	void tessPanel();
 	void shaderPanel();
 
 	void menuBar();
@@ -166,5 +165,4 @@ private:
 
 	/******/
 	int selection{ 0 };
-
 };

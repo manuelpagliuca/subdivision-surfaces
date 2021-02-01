@@ -47,7 +47,7 @@ private:
 	// Build vertices and indices
 	void buildVerticesFlat();
 
-	// Prism Data 
+	// Prism Data
 	float baseRadius;
 	float topRadius;
 	float height;

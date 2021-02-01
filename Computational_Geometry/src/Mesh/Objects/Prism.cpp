@@ -185,7 +185,6 @@ void Prism::clearArrays()
 	std::vector<unsigned>().swap(indices);
 }
 
-
 /* getters and setters */
 const float Prism::getBaseRadius() const
 {

@@ -211,95 +211,6 @@ void GUI::objectsPanel()
 	ImGui::End();
 }
 
-/* panel for edit the tessellation levels */
-void GUI::tessPanel()
-{
-	ImGuiWindowFlags window_flags{ ImGuiWindowFlags_NoResize };
-	ImGui::SetNextWindowSize(ImVec2(350.f, 280.f), 0);
-	ImGui::SetNextWindowPos(ImVec2(50.f, 50.f), ImGuiCond_FirstUseEver);
-	ImGui::Begin("Tessellation", NULL, window_flags);
-	constexpr int textSpace = 250;
-
-	if (m_tessParams.selectedShader == shader::TRIANG_TESS_SHADER)
-	{
-		ImGui::Checkbox("Show tessellation wireframe", &m_tessParams.wireframeMode);
-		ImGui::SliderInt("inner", &m_tessParams.innerLevel1, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Inner Level");
-		ImGui::SliderInt("outerTri1", &m_tessParams.outerLevel1, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 1");
-		ImGui::SliderInt("outerTri2", &m_tessParams.outerLevel2, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 2");
-		ImGui::SliderInt("outerTri3", &m_tessParams.outerLevel3, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 3");
-
-		ImGui::NewLine(); ImGui::NewLine(); ImGui::SameLine(150);
-
-		if (ImGui::Button("Reset"))
-		{
-			m_tessParams.innerLevel1 = 1;
-			m_tessParams.innerLevel2 = 1;
-			m_tessParams.outerLevel1 = 1;
-			m_tessParams.outerLevel2 = 1;
-			m_tessParams.outerLevel3 = 1;
-			m_tessParams.outerLevel4 = 1;
-		}
-
-		ImGui::Separator();	ImGui::NewLine(); ImGui::Checkbox("Lock all levels", &m_tessAllLevels);
-
-		if (m_tessAllLevels)
-		{
-			ImGui::NewLine(); ImGui::SliderInt("allTriaLevels", &m_stepSize, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("All Levels");
-			m_tessParams.innerLevel1 = m_stepSize;
-			m_tessParams.outerLevel1 = m_stepSize;
-			m_tessParams.outerLevel2 = m_stepSize;
-			m_tessParams.outerLevel3 = m_stepSize;
-		}
-	}
-	else if (m_tessParams.selectedShader == shader::QUADS_TESS_SHADER)
-	{
-		if (m_objectParams[GUI_OBJ::CUBE].toVisualize)
-		{
-			ImGui::Checkbox("Wireframe", &m_tessParams.wireframeMode);
-			ImGui::SliderInt("innerQuad1", &m_tessParams.innerLevel1, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Inner Level 1");
-			ImGui::SliderInt("innerQuad2", &m_tessParams.innerLevel2, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Inner Level 2");
-			ImGui::SliderInt("outerQuad1", &m_tessParams.outerLevel1, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 1");
-			ImGui::SliderInt("outerQuad2", &m_tessParams.outerLevel2, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 2");
-			ImGui::SliderInt("outerQuad3", &m_tessParams.outerLevel3, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 3");
-			ImGui::SliderInt("outerQuad4", &m_tessParams.outerLevel4, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("Outer Level 4");
-
-			ImGui::NewLine(); ImGui::NewLine(); ImGui::SameLine(150);
-
-			if (ImGui::Button("Reset"))
-			{
-				m_tessParams.innerLevel1 = 1;
-				m_tessParams.innerLevel2 = 1;
-				m_tessParams.outerLevel1 = 1;
-				m_tessParams.outerLevel2 = 1;
-				m_tessParams.outerLevel3 = 1;
-				m_tessParams.outerLevel4 = 1;
-			}
-
-			ImGui::Separator();	ImGui::NewLine(); ImGui::Checkbox("Lock all levels", &m_tessAllLevels);
-
-			if (m_tessAllLevels)
-			{
-				ImGui::NewLine(); ImGui::SliderInt("allQuadLevels", &m_stepSize, 1, 20); ImGui::SameLine(textSpace); ImGui::Text("All Levels");
-				m_tessParams.innerLevel1 = m_stepSize;
-				m_tessParams.innerLevel2 = m_stepSize;
-				m_tessParams.outerLevel1 = m_stepSize;
-				m_tessParams.outerLevel2 = m_stepSize;
-				m_tessParams.outerLevel3 = m_stepSize;
-				m_tessParams.outerLevel4 = m_stepSize;
-			}
-		}
-		else
-		{
-			ImGui::TextColored(ImVec4(1.0f, 0.f, 0.f, 1.f), "Quadrilateral primitive not available for\nthis object!");
-		}
-	}
-	else
-	{
-		ImGui::SameLine(130); ImGui::TextColored(ImVec4(1.0f, 0.f, 0.f, 1.f), "TCS not found!");
-	}
-	ImGui::End();
-}
-
 /* panel for selecting the m_shaders */
 void GUI::shaderPanel()
 {
@@ -307,21 +218,10 @@ void GUI::shaderPanel()
 	ImGui::SetNextWindowSize(ImVec2(300.f, 100.f), 0);
 	ImGui::SetNextWindowPos(ImVec2(50.f, 820.f), ImGuiCond_FirstUseEver);
 	ImGui::Begin("Shaders", nullptr, window_flags);
-	ImGui::Combo("ShaderType", &m_tessParams.selectedShader, "Simple VS-FS\0Triangle Tessellation\0Quad Tessellation\0");
 
-	switch (m_tessParams.selectedShader)
-	{
-	case 0:
-		m_tessParams.selectedShader = shader::SIMPLE_SHADER;
-		ImGui::NewLine(); ImGui::Checkbox("Wireframe", &m_tessParams.wireframeMode);
-		break;
-	case 1:
-		m_tessParams.selectedShader = shader::TRIANG_TESS_SHADER;
-		break;
-	case 2:
-		m_tessParams.selectedShader = shader::QUADS_TESS_SHADER;
-		break;
-	}
+	ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "Mac OS Release, \nno other shaders available");
+	//ImGui::Combo("ShaderType", &m_tessParams.selectedShader, "Simple VS-FS\0Triangle Tessellation\0Quad Tessellation\0");
+	ImGui::NewLine(); ImGui::Checkbox("Wireframe", &m_tessParams.wireframeMode);
 
 	ImGui::End();
 }
@@ -420,11 +320,6 @@ GUI::~GUI()
 {
 	if (!m_cache)
 	{
-		if (!remove("imgui.ini"))
-		{
-#ifndef NDEBUG
-			std::cerr << "An error occurred when tried to remove the file 'imgui.ini'\n" << std::endl;
-#endif // !NDEBUG
-		}
+		remove("imgui.ini");
 	}
 }

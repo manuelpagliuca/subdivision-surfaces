@@ -18,10 +18,6 @@ namespace shader {
 namespace source {
 	inline const char* vShader = "Shaders/shader.vert";
 	inline const char* fShader = "Shaders/shader.frag";
-	inline const char* triangularTCS = "Shaders/triangular.tesc";
-	inline const char* triangularTES = "Shaders/triangular.tese";
-	inline const char* quadTCS = "Shaders/quad.tesc";
-	inline const char* quadTES = "Shaders/quad.tese";
 };
 
 class Shader
@@ -34,24 +30,17 @@ public:
 		createFromFiles(vShader, fShader);
 	}
 
-	Shader(const char* vShader, const char* tcsShader, const char* tesShader, const char* fShader)
-	{
-		createFromFiles(vShader, tcsShader, tesShader, fShader);
-	}
-
 	~Shader();
 
 	/* member functions */
 	void createFromString(const char* vertexCode, const char* fragmentCode);
 	void createFromFiles(const char* vertexLocation, const char* fragmentLocation);
-	void createFromFiles(const char* vertexLocation, const char* fragmentLocation, const char* tcsLocation, const char* tesLocation);
 	std::string readFile(const char* fileLocation) const;
 	void useShader() const;
 	void clearShader();
 
 	/* getters */
 	const GLuint& getProjectionLocation() const;
-	const GLuint& getViewMatrixLocation() const;
 	const GLuint& getModelLocation() const;
 	const GLuint& getLocationTriangInnerLevel1() const;
 	const GLuint& getLocationTriangOuterLevel1() const;
@@ -72,7 +61,6 @@ public:
 private:
 	/* private functions*/
 	void compileShader(const char* vertexCode, const char* fragmentCode);
-	void compileShader(const char* vertexCode, const char* tcsCode, const char* tesCode, const char* fragmentCode);
 	void addShader(const GLuint& theProgram, const char* shaderCode, const GLenum& shaderType) const;
 
 	/* program id */

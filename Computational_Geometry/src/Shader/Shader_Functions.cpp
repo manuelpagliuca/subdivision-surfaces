@@ -15,21 +15,6 @@ void Shader::createFromFiles(const char* vertexLocation, const char* fragmentLoc
 	compileShader(vertexCode, fragmentCode);
 }
 
-void Shader::createFromFiles(const char* vertexLocation, const char* tcsLocation, const char* tesLocation, const char* fragmentLocation)
-{
-	std::string vertexString = readFile(vertexLocation);
-	std::string fragmentString = readFile(fragmentLocation);
-	std::string tessCSString = readFile(tcsLocation);
-	std::string tessESString = readFile(tesLocation);
-
-	const char* vertexCode = vertexString.c_str();
-	const char* fragmentCode = fragmentString.c_str();
-	const char* tessCSCode = tessCSString.c_str();
-	const char* tessEVCode = tessESString.c_str();
-
-	compileShader(vertexCode, tessCSCode, tessEVCode, fragmentCode);
-}
-
 std::string Shader::readFile(const char* fileLocation) const
 {
 	std::string content;
@@ -88,73 +73,6 @@ void Shader::compileShader(const char* vertexCode, const char* fragmentCode)
 
 	uniformProjectionMatrix = glGetUniformLocation(m_shaderID, "projection");
 	uniformModelMatrix = glGetUniformLocation(m_shaderID, "model");
-}
-
-void Shader::compileShader(const char* vertexCode, const char* tcsCode, const char* tesCode, const char* fragmentCode)
-{
-	m_shaderID = glCreateProgram();
-
-	if (!m_shaderID)
-	{
-		printf("Error creating shader program!\n");
-		return;
-	}
-
-	addShader(m_shaderID, vertexCode, GL_VERTEX_SHADER);
-	addShader(m_shaderID, tcsCode, GL_TESS_CONTROL_SHADER);
-	addShader(m_shaderID, tesCode, GL_TESS_EVALUATION_SHADER);
-	addShader(m_shaderID, fragmentCode, GL_FRAGMENT_SHADER);
-
-	GLint result = 0;
-	GLchar eLog[1024] = { 0 };
-
-	glLinkProgram(m_shaderID);
-	glGetProgramiv(m_shaderID, GL_LINK_STATUS, &result);
-
-	if (!result)
-	{
-		glGetProgramInfoLog(m_shaderID, sizeof(eLog), NULL, eLog);
-		printf("Error linking program: '%s'\n", eLog);
-		return;
-	}
-
-	glValidateProgram(m_shaderID);
-	glGetProgramiv(m_shaderID, GL_VALIDATE_STATUS, &result);
-	if (!result)
-	{
-		glGetProgramInfoLog(m_shaderID, sizeof(eLog), NULL, eLog);
-		printf("Error validating program: '%s'\n", eLog);
-		return;
-	}
-
-	/* uniform matrices */
-	uniformModelMatrix = glGetUniformLocation(m_shaderID, "model");
-	uniformProjectionMatrix = glGetUniformLocation(m_shaderID, "projection");
-
-	/* uniform triang tcs */
-	uniformTriangInnerLevel = glGetUniformLocation(m_shaderID, "triangInnerLevel");
-	uniformTriangOuterLevel1 = glGetUniformLocation(m_shaderID, "triangOuterLevel1");
-	uniformTriangOuterLevel2 = glGetUniformLocation(m_shaderID, "triangOuterLevel2");
-	uniformTriangOuterLevel3 = glGetUniformLocation(m_shaderID, "triangOuterLevel3");
-
-	/* uniform quad tcs */
-	uniformQuadInnerLevel1 = glGetUniformLocation(m_shaderID, "quadInnerLevel1");
-	uniformQuadInnerLevel2 = glGetUniformLocation(m_shaderID, "quadInnerLevel2");
-	uniformQuadOuterLevel1 = glGetUniformLocation(m_shaderID, "quadOuterLevel1");
-	uniformQuadOuterLevel2 = glGetUniformLocation(m_shaderID, "quadOuterLevel2");
-	uniformQuadOuterLevel3 = glGetUniformLocation(m_shaderID, "quadOuterLevel3");
-	uniformQuadOuterLevel4 = glGetUniformLocation(m_shaderID, "quadOuterLevel4");
-
-	/* uniform color picker */
-	uniformPickedColor = glGetUniformLocation(m_shaderID, "pickedColor");
-
-	/* uniform color mode */
-	uniformColorMode = glGetUniformLocation(m_shaderID, "colorMode");
-
-	/* barycentric coordinates colors */
-	uniformBarycentricColorX = glGetUniformLocation(m_shaderID, "tessCoord_x_color");
-	uniformBarycentricColorY = glGetUniformLocation(m_shaderID, "tessCoord_y_color");
-	uniformBarycentricColorZ = glGetUniformLocation(m_shaderID, "tessCoord_z_color");
 }
 
 void Shader::addShader(const GLuint& theProgram, const char* shaderCode, const GLenum& shaderType) const
