@@ -420,11 +420,6 @@ GUI::~GUI()
 {
 	if (!m_cache)
 	{
-		if (!remove("imgui.ini"))
-		{
-#ifndef NDEBUG
-			std::cerr << "An error occurred when tried to remove the file 'imgui.ini'\n" << std::endl;
-#endif // !NDEBUG
-		}
+		remove("imgui.ini");
 	}
 }
