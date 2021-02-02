@@ -20,7 +20,7 @@
 //  2019-10-18: Misc: Previously installed user callbacks are now restored on shutdown.
 //  2019-07-21: Inputs: Added mapping for ImGuiKey_KeyPadEnter.
 //  2019-05-11: Inputs: Don't filter value from character callback before calling AddInputCharacter().
-//  2019-03-12: Misc: Preserve DisplayFramebufferScale when main window is minimized.
+//  2019-03-12: Misc: Preserve DisplayFramebufferScale when main m_window is minimized.
 //  2018-11-30: Misc: Setting up io.BackendPlatformName so it can be displayed in the About Window.
 //  2018-11-07: Inputs: When installing our GLFW callbacks, we save user's previously installed ones - if any - and chain call them.
 //  2018-08-01: Inputs: Workaround for Emscripten which doesn't seem to handle focus related calls.
@@ -65,7 +65,7 @@ enum GlfwClientApi
 	GlfwClientApi_OpenGL,
 	GlfwClientApi_Vulkan
 };
-static GLFWwindow* g_Window = NULL;    // Main window
+static GLFWwindow* g_Window = NULL;    // Main m_window
 static GlfwClientApi        g_ClientApi = GlfwClientApi_Unknown;
 static double               g_Time = 0.0;
 static bool                 g_MouseJustPressed[ImGuiMouseButton_COUNT] = {};
@@ -88,29 +88,29 @@ static void ImGui_ImplGlfw_SetClipboardText(void* user_data, const char* text)
 	glfwSetClipboardString((GLFWwindow*)user_data, text);
 }
 
-void ImGui_ImplGlfw_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+void ImGui_ImplGlfw_MouseButtonCallback(GLFWwindow* m_window, int button, int action, int mods)
 {
 	if (g_PrevUserCallbackMousebutton != NULL)
-		g_PrevUserCallbackMousebutton(window, button, action, mods);
+		g_PrevUserCallbackMousebutton(m_window, button, action, mods);
 
 	if (action == GLFW_PRESS && button >= 0 && button < IM_ARRAYSIZE(g_MouseJustPressed))
 		g_MouseJustPressed[button] = true;
 }
 
-void ImGui_ImplGlfw_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void ImGui_ImplGlfw_ScrollCallback(GLFWwindow* m_window, double xoffset, double yoffset)
 {
 	if (g_PrevUserCallbackScroll != NULL)
-		g_PrevUserCallbackScroll(window, xoffset, yoffset);
+		g_PrevUserCallbackScroll(m_window, xoffset, yoffset);
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.MouseWheelH += (float)xoffset;
 	io.MouseWheel += (float)yoffset;
 }
 
-void ImGui_ImplGlfw_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void ImGui_ImplGlfw_KeyCallback(GLFWwindow* m_window, int key, int scancode, int action, int mods)
 {
 	if (g_PrevUserCallbackKey != NULL)
-		g_PrevUserCallbackKey(window, key, scancode, action, mods);
+		g_PrevUserCallbackKey(m_window, key, scancode, action, mods);
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (action == GLFW_PRESS)
@@ -129,18 +129,18 @@ void ImGui_ImplGlfw_KeyCallback(GLFWwindow* window, int key, int scancode, int a
 #endif
 }
 
-void ImGui_ImplGlfw_CharCallback(GLFWwindow* window, unsigned int c)
+void ImGui_ImplGlfw_CharCallback(GLFWwindow* m_window, unsigned int c)
 {
 	if (g_PrevUserCallbackChar != NULL)
-		g_PrevUserCallbackChar(window, c);
+		g_PrevUserCallbackChar(m_window, c);
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.AddInputCharacter(c);
 }
 
-static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, GlfwClientApi client_api)
+static bool ImGui_ImplGlfw_Init(GLFWwindow* m_window, bool install_callbacks, GlfwClientApi client_api)
 {
-	g_Window = window;
+	g_Window = m_window;
 	g_Time = 0.0;
 
 	// Setup back-end capabilities flags
@@ -211,24 +211,24 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
 	if (install_callbacks)
 	{
 		g_InstalledCallbacks = true;
-		g_PrevUserCallbackMousebutton = glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
-		g_PrevUserCallbackScroll = glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
-		g_PrevUserCallbackKey = glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
-		g_PrevUserCallbackChar = glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+		g_PrevUserCallbackMousebutton = glfwSetMouseButtonCallback(m_window, ImGui_ImplGlfw_MouseButtonCallback);
+		g_PrevUserCallbackScroll = glfwSetScrollCallback(m_window, ImGui_ImplGlfw_ScrollCallback);
+		g_PrevUserCallbackKey = glfwSetKeyCallback(m_window, ImGui_ImplGlfw_KeyCallback);
+		g_PrevUserCallbackChar = glfwSetCharCallback(m_window, ImGui_ImplGlfw_CharCallback);
 	}
 
 	g_ClientApi = client_api;
 	return true;
 }
 
-bool ImGui_ImplGlfw_InitForOpenGL(GLFWwindow* window, bool install_callbacks)
+bool ImGui_ImplGlfw_InitForOpenGL(GLFWwindow* m_window, bool install_callbacks)
 {
-	return ImGui_ImplGlfw_Init(window, install_callbacks, GlfwClientApi_OpenGL);
+	return ImGui_ImplGlfw_Init(m_window, install_callbacks, GlfwClientApi_OpenGL);
 }
 
-bool ImGui_ImplGlfw_InitForVulkan(GLFWwindow* window, bool install_callbacks)
+bool ImGui_ImplGlfw_InitForVulkan(GLFWwindow* m_window, bool install_callbacks)
 {
-	return ImGui_ImplGlfw_Init(window, install_callbacks, GlfwClientApi_Vulkan);
+	return ImGui_ImplGlfw_Init(m_window, install_callbacks, GlfwClientApi_Vulkan);
 }
 
 void ImGui_ImplGlfw_Shutdown()
@@ -347,7 +347,7 @@ void ImGui_ImplGlfw_NewFrame()
 	ImGuiIO& io = ImGui::GetIO();
 	IM_ASSERT(io.Fonts->IsBuilt() && "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame().");
 
-	// Setup display size (every frame to accommodate for window resizing)
+	// Setup display size (every frame to accommodate for m_window resizing)
 	int w, h;
 	int display_w, display_h;
 	glfwGetWindowSize(g_Window, &w, &h);

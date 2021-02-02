@@ -269,7 +269,7 @@ void ImGui::ShowDemoWindow(bool* p_open)
 		ImGui::End();
 	}
 
-	// Demonstrate the various window flags. Typically you would just use the default!
+	// Demonstrate the various m_window flags. Typically you would just use the default!
 	static bool no_titlebar = false;
 	static bool no_scrollbar = false;
 	static bool no_menu = false;
@@ -298,10 +298,10 @@ void ImGui::ShowDemoWindow(bool* p_open)
 	ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
 
-	// Main body of the Demo window starts here.
+	// Main body of the Demo m_window starts here.
 	if (!ImGui::Begin("Dear ImGui Demo", p_open, window_flags))
 	{
-		// Early out if the window is collapsed, as an optimization.
+		// Early out if the m_window is collapsed, as an optimization.
 		ImGui::End();
 		return;
 	}
@@ -2053,7 +2053,7 @@ static void ShowDemoWindowWidgets()
 		ImGui::InputText("unused", unused_str, IM_ARRAYSIZE(unused_str), ImGuiInputTextFlags_ReadOnly);
 
 		// Calling IsItemHovered() after begin returns the hovered status of the title bar.
-		// This is useful in particular if you want to create a context menu associated to the title bar of a window.
+		// This is useful in particular if you want to create a context menu associated to the title bar of a m_window.
 		static bool test_window = false;
 		ImGui::Checkbox("Hovered/Active tests after Begin() for title bar testing", &test_window);
 		if (test_window)
@@ -2135,11 +2135,11 @@ static void ShowDemoWindowLayout()
 
 		// Demonstrate a few extra things
 		// - Changing ImGuiCol_ChildBg (which is transparent black in default styles)
-		// - Using SetCursorPos() to position child window (the child window is an item from the POV of parent window)
-		//   You can also call SetNextWindowPos() to position the child window. The parent window will effectively
+		// - Using SetCursorPos() to position child m_window (the child m_window is an item from the POV of parent m_window)
+		//   You can also call SetNextWindowPos() to position the child m_window. The parent m_window will effectively
 		//   layout from this position.
-		// - Using ImGui::GetItemRectMin/Max() to query the "item" state (because the child window is an item from
-		//   the POV of the parent window). See 'Demo->Querying Status (Active/Focused/Hovered etc.)' for details.
+		// - Using ImGui::GetItemRectMin/Max() to query the "item" state (because the child m_window is an item from
+		//   the POV of the parent m_window). See 'Demo->Querying Status (Active/Focused/Hovered etc.)' for details.
 		{
 			static int offset_x = 0;
 			ImGui::SetNextItemWidth(100);
@@ -2763,8 +2763,8 @@ static void ShowDemoWindowLayout()
 		ImGui::Text("%.0f/%.0f", scroll_x, scroll_max_x);
 		if (scroll_x_delta != 0.0f)
 		{
-			// Demonstrate a trick: you can use Begin to set yourself in the context of another window
-			// (here we are already out of your child window)
+			// Demonstrate a trick: you can use Begin to set yourself in the context of another m_window
+			// (here we are already out of your child m_window)
 			ImGui::BeginChild("scrolling");
 			ImGui::SetScrollX(ImGui::GetScrollX() + scroll_x_delta);
 			ImGui::EndChild();
@@ -3084,7 +3084,7 @@ static void ShowDemoWindowPopups()
 		if (ImGui::Button("Delete.."))
 			ImGui::OpenPopup("Delete?");
 
-		// Always center this window when appearing
+		// Always center this m_window when appearing
 		ImVec2 center(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f);
 		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
@@ -4037,7 +4037,7 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
 				"rebuild the font atlas, and call style.ScaleAllSizes() on a reference ImGuiStyle structure.\n"
 				"Using those settings here will give you poor quality results.");
 			static float window_scale = 1.0f;
-			if (ImGui::DragFloat("window scale", &window_scale, 0.005f, MIN_SCALE, MAX_SCALE, "%.2f", ImGuiSliderFlags_AlwaysClamp)) // Scale only this window
+			if (ImGui::DragFloat("window scale", &window_scale, 0.005f, MIN_SCALE, MAX_SCALE, "%.2f", ImGuiSliderFlags_AlwaysClamp)) // Scale only this m_window
 				ImGui::SetWindowFontScale(window_scale);
 			ImGui::DragFloat("global scale", &io.FontGlobalScale, 0.005f, MIN_SCALE, MAX_SCALE, "%.2f", ImGuiSliderFlags_AlwaysClamp); // Scale everything
 			ImGui::PopItemWidth();
@@ -4103,8 +4103,8 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
 
 // Demonstrate creating a "main" fullscreen menu bar and populating it.
 // Note the difference between BeginMainMenuBar() and BeginMenuBar():
-// - BeginMenuBar() = menu-bar inside current window (which needs the ImGuiWindowFlags_MenuBar flag!)
-// - BeginMainMenuBar() = helper to create menu-bar-sized window at the top of the main viewport + call BeginMenuBar() into it.
+// - BeginMenuBar() = menu-bar inside current m_window (which needs the ImGuiWindowFlags_MenuBar flag!)
+// - BeginMainMenuBar() = helper to create menu-bar-sized m_window at the top of the main viewport + call BeginMenuBar() into it.
 static void ShowExampleAppMainMenuBar()
 {
 	if (ImGui::BeginMainMenuBar())
@@ -4210,7 +4210,7 @@ static void ShowExampleMenuFile()
 // [SECTION] Example App: Debug Console / ShowExampleAppConsole()
 //-----------------------------------------------------------------------------
 
-// Demonstrate creating a simple console window, with scrolling, filtering, completion and history.
+// Demonstrate creating a simple console m_window, with scrolling, filtering, completion and history.
 // For the console example, we are using a more C++ like approach of declaring a class to hold both data and functions.
 struct ExampleAppConsole
 {
@@ -4399,7 +4399,7 @@ struct ExampleAppConsole
 			reclaim_focus = true;
 		}
 
-		// Auto-focus on window apparition
+		// Auto-focus on m_window apparition
 		ImGui::SetItemDefaultFocus();
 		if (reclaim_focus)
 			ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
@@ -4619,7 +4619,7 @@ struct ExampleAppLog
 			ImGui::EndPopup();
 		}
 
-		// Main window
+		// Main m_window
 		if (ImGui::Button("Options"))
 			ImGui::OpenPopup("Options");
 		ImGui::SameLine();
@@ -4692,14 +4692,14 @@ struct ExampleAppLog
 	}
 };
 
-// Demonstrate creating a simple log window with basic filtering.
+// Demonstrate creating a simple log m_window with basic filtering.
 static void ShowExampleAppLog(bool* p_open)
 {
 	static ExampleAppLog log;
 
-	// For the demo: add a debug button _BEFORE_ the normal log window contents
-	// We take advantage of a rarely used feature: multiple calls to Begin()/End() are appending to the _same_ window.
-	// Most of the contents of the window will be added by the log.Draw() call.
+	// For the demo: add a debug button _BEFORE_ the normal log m_window contents
+	// We take advantage of a rarely used feature: multiple calls to Begin()/End() are appending to the _same_ m_window.
+	// Most of the contents of the m_window will be added by the log.Draw() call.
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
 	ImGui::Begin("Example: Log", p_open);
 	if (ImGui::SmallButton("[Debug] Add 5 entries"))
@@ -4718,7 +4718,7 @@ static void ShowExampleAppLog(bool* p_open)
 	}
 	ImGui::End();
 
-	// Actually call in the regular Log helper (which will Begin() into the same window as we just did)
+	// Actually call in the regular Log helper (which will Begin() into the same m_window as we just did)
 	log.Draw("Example: Log", p_open);
 }
 
@@ -4726,7 +4726,7 @@ static void ShowExampleAppLog(bool* p_open)
 // [SECTION] Example App: Simple Layout / ShowExampleAppLayout()
 //-----------------------------------------------------------------------------
 
-// Demonstrate create a window with multiple child windows.
+// Demonstrate create a m_window with multiple child windows.
 static void ShowExampleAppLayout(bool* p_open)
 {
 	ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
@@ -4930,7 +4930,7 @@ static void ShowExampleAppLongText(bool* p_open)
 // [SECTION] Example App: Auto Resize / ShowExampleAppAutoResize()
 //-----------------------------------------------------------------------------
 
-// Demonstrate creating a window which gets auto-resized according to its content.
+// Demonstrate creating a m_window which gets auto-resized according to its content.
 static void ShowExampleAppAutoResize(bool* p_open)
 {
 	if (!ImGui::Begin("Example: Auto-resizing window", p_open, ImGuiWindowFlags_AlwaysAutoResize))
@@ -4954,7 +4954,7 @@ static void ShowExampleAppAutoResize(bool* p_open)
 // [SECTION] Example App: Constrained Resize / ShowExampleAppConstrainedResize()
 //-----------------------------------------------------------------------------
 
-// Demonstrate creating a window with custom resize constraints.
+// Demonstrate creating a m_window with custom resize constraints.
 static void ShowExampleAppConstrainedResize(bool* p_open)
 {
 	struct CustomConstraints
@@ -5007,7 +5007,7 @@ static void ShowExampleAppConstrainedResize(bool* p_open)
 // [SECTION] Example App: Simple Overlay / ShowExampleAppSimpleOverlay()
 //-----------------------------------------------------------------------------
 
-// Demonstrate creating a simple static window with no decoration
+// Demonstrate creating a simple static m_window with no decoration
 // + a context-menu to choose which corner of the screen to use.
 static void ShowExampleAppSimpleOverlay(bool* p_open)
 {
@@ -5199,7 +5199,7 @@ static void ShowExampleAppCustomRendering(bool* p_open)
 
 			// Typically you would use a BeginChild()/EndChild() pair to benefit from a clipping region + own scrolling.
 			// Here we demonstrate that this can be replaced by simple offsetting + custom drawing + PushClipRect/PopClipRect() calls.
-			// To use a child window instead we could use, e.g:
+			// To use a child m_window instead we could use, e.g:
 			//      ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));      // Disable padding
 			//      ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(50, 50, 50, 255));  // Set a background color
 			//      ImGui::BeginChild("canvas", ImVec2(0.0f, 0.0f), true, ImGuiWindowFlags_NoMove);

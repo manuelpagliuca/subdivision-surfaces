@@ -2,10 +2,41 @@
 
 Window::Window(const char* t_windowTitle, const int t_windowWidth, const int t_windowHeight, const bool t_fullscreen)
 {
+	m_windowTitle = t_windowTitle;
 	m_width = t_windowWidth;
 	m_height = t_windowHeight;
 	m_fullscreen = t_fullscreen;
+}
+
+Window::Window(const char* t_windowTitle, const bool t_fullscreen, ResolutionType const& res)
+{
 	m_windowTitle = t_windowTitle;
+	m_fullscreen = t_fullscreen;
+
+	switch (res)
+	{
+	case ResolutionType::RES_1920_1080:
+		m_width = 1920;
+		m_height = 1080;
+		break;
+	case ResolutionType::RES_1240_720:
+		m_width = 1240;
+		m_height = 720;
+		break;
+	case ResolutionType::RES_800_600:
+		m_width = 800;
+		m_height = 600;
+		break;
+	case ResolutionType::RES_1280_1024:
+		m_width = 1280;
+		m_height = 1024;
+		break;
+	default:
+		m_width = 1240;
+		m_height = 720;
+		break;
+	}
+
 }
 
 Window::Window(const char* t_windowTitle, const bool t_fullscreenMode)
@@ -33,43 +64,43 @@ int Window::initialise()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	if (m_fullscreen) {
-		window = glfwCreateWindow(m_width, m_height, m_windowTitle, glfwGetPrimaryMonitor(), nullptr);
+		m_window = glfwCreateWindow(m_width, m_height, m_windowTitle, glfwGetPrimaryMonitor(), nullptr);
 	}
 	else {
-		window = glfwCreateWindow(m_width, m_height, m_windowTitle, nullptr, nullptr);
+		m_window = glfwCreateWindow(m_width, m_height, m_windowTitle, nullptr, nullptr);
 	}
 
-	if (window == nullptr)
+	if (m_window == nullptr)
 	{
 		perror("Error initialising the window.\n");
-		glfwDestroyWindow(window);
+		glfwDestroyWindow(m_window);
 		glfwTerminate();
 		return -1;
 	}
 
-	glfwGetFramebufferSize(window, &m_bufferWidth, &m_bufferHeight);
+	glfwGetFramebufferSize(m_window, &m_bufferWidth, &m_bufferHeight);
 
 	m_primaryMonitor = glfwGetPrimaryMonitor();
 
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(m_window);
 
 	createCallBacks();
 
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	glewExperimental = GL_TRUE;
 
 	const GLFWvidmode* mode = glfwGetVideoMode(m_primaryMonitor);
 
 	glfwGetMonitorPos(m_primaryMonitor, &m_monitorX, &m_monitorY);
-	glfwSetWindowPos(window, m_monitorX + (mode->width - m_width) / 2, m_monitorY + (mode->height - m_height) / 2);
+	glfwSetWindowPos(m_window, m_monitorX + (mode->width - m_width) / 2, m_monitorY + (mode->height - m_height) / 2);
 
 	GLenum error = glewInit();
 
 	if (error != GLEW_OK)
 	{
 		std::cout << "Error initialising GLEW : " << glewGetErrorString(error) << "\n";
-		glfwDestroyWindow(window);
+		glfwDestroyWindow(m_window);
 		glfwTerminate();
 		return -1;
 	}
@@ -80,14 +111,14 @@ int Window::initialise()
 
 	glViewport(0, 0, m_bufferWidth, m_bufferHeight);
 
-	glfwSetWindowUserPointer(window, this);	// La funzione e' statica non sa a quale oggetto riferirsi, la window in entrata su handle_keys ora sapr� che si riferisce a a quest'oggetto
+	glfwSetWindowUserPointer(m_window, this);	// La funzione e' statica non sa a quale oggetto riferirsi, la m_window in entrata su handle_keys ora sapr� che si riferisce a a quest'oggetto
 
 	return 1;
 }
 
 void Window::swapBuffers() const
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window);
 }
 
 void Window::update()
@@ -104,13 +135,13 @@ void Window::update()
 		m_lastTime = now;
 		char title[256];
 		sprintf(title, "Computational Geometry 2020/2021, Manuel Pagliuca [%.2f FPS]", 1.f / m_deltaTime);
-		glfwSetWindowTitle(window, title);
+		glfwSetWindowTitle(m_window, title);
 	}
 
 	/* Adjust frame on resize */
 	GLint newBufferWidth, newBufferHeight;
 
-	glfwGetFramebufferSize(window, &newBufferWidth, &newBufferHeight);
+	glfwGetFramebufferSize(m_window, &newBufferWidth, &newBufferHeight);
 
 	if (newBufferWidth != m_bufferWidth || newBufferHeight != m_bufferHeight)
 	{
@@ -123,13 +154,13 @@ void Window::update()
 	}
 
 	/* Mouse coordinates */
-	glfwGetCursorPos(window, &m_mouseX, &m_mouseY);
+	glfwGetCursorPos(m_window, &m_mouseX, &m_mouseY);
 }
 
 void Window::createCallBacks()
 {
-	glfwSetKeyCallback(window, handleKeys);
-	glfwSetCursorPosCallback(window, handleMouse);
+	glfwSetKeyCallback(m_window, handleKeys);
+	glfwSetCursorPosCallback(m_window, handleMouse);
 }
 
 void Window::handleKeys(GLFWwindow* t_window, int t_key, int t_code, int t_action, int t_mode)
@@ -229,7 +260,7 @@ glm::mat4 Window::getProjectionMatrix() const
 
 GLFWwindow* Window::getWindowObject()
 {
-	return window;
+	return m_window;
 }
 
 bool* Window::getKeys()
@@ -239,7 +270,7 @@ bool* Window::getKeys()
 
 bool Window::getShouldClose() const
 {
-	return glfwWindowShouldClose(window);
+	return glfwWindowShouldClose(m_window);
 }
 
 double Window::getDeltaTime()
@@ -249,6 +280,6 @@ double Window::getDeltaTime()
 
 Window::~Window()
 {
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(m_window);
 	glfwTerminate();
 }

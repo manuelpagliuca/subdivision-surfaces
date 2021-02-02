@@ -13,11 +13,19 @@
 #include <GLM/gtc/type_ptr.hpp>
 #pragma warning(pop)
 
+enum class ResolutionType {
+	RES_1920_1080,
+	RES_1280_1024,
+	RES_1240_720,
+	RES_800_600
+};
+
 class Window
 {
 public:
 	Window() = default;
 	Window(const char* t_windowTitle, const int t_windowWidth, const int t_windowHeight, const bool t_fullscreen = false);
+	Window(char const* t_windowTitle, bool const t_fullscreen, ResolutionType const& res);
 	Window(const char* t_windowTitle, const bool t_fullscreenMode = false);
 	~Window();
 
@@ -51,8 +59,8 @@ private:
 	static void handleKeys(GLFWwindow* t_window, int t_key, int t_code, int t_action, int t_mode);
 	static void handleMouse(GLFWwindow* t_window, double t_xPos, double t_yPos);
 
-	/* the window object */
-	GLFWwindow* window{ nullptr };
+	/* the m_window object */
+	GLFWwindow* m_window{ nullptr };
 	GLFWmonitor* m_primaryMonitor{ nullptr };
 
 	/* aspect ratio */
@@ -63,7 +71,7 @@ private:
 	bool m_fullscreen{ false };
 	const char* m_windowTitle{ nullptr };
 
-	/* centering the window */
+	/* centering the m_window */
 	int m_monitorX{};
 	int m_monitorY{};
 

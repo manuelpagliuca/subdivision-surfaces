@@ -7,7 +7,7 @@ bool GUI::m_cache = false;
 void GUI::objectsPanel()
 {
 	ImGuiWindowFlags window_flags{ ImGuiWindowFlags_NoResize };
-	ImGui::SetNextWindowSize(ImVec2(400.f, 900.f));
+	ImGui::SetNextWindowSize(ImVec2(400.f, 600.f));
 	ImGui::SetNextWindowPos(ImVec2(1450.f, 50.f), ImGuiCond_FirstUseEver);
 	ImGui::Begin("Object Panel", nullptr, window_flags);
 	ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Select object"); ImGui::NewLine();
@@ -376,15 +376,15 @@ void GUI::initFrame() const
 	ImGui::GetStyle().ScrollbarRounding = 0.0f;
 }
 
-/* setting up the context on the window*/
-void GUI::setupContext(GLFWwindow* window) const
+/* setting up the context on the m_window*/
+void GUI::setupContext(GLFWwindow* m_window) const
 {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	//(void)io;
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 	ImGui_ImplOpenGL3_Init("#version 430");
 }
 

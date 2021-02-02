@@ -11,14 +11,14 @@
 #include "Shader/Shader.h"
 #include "GUI/GUI.h"
 #include "Scene/Scene.h"
+#include "GUI/SettingsWindow.h"
 
 int main()
 {
-	// Settings window
-	Window resWindow;
-	resWindow = Window("Resolution settings", 400, 100, false);
+	// Settings m_window
+	SettingsWindow resWindow{ "Resolution settings" };
 
-	const int code = runSettingsWindow(resWindow);
+	int const code = resWindow.run();
 
 	if (code == EXIT_FAILURE)
 		return EXIT_FAILURE;
@@ -26,8 +26,7 @@ int main()
 		return EXIT_SUCCESS;
 
 	// App Window
-	Window mainWindow;
-	mainWindow = Window("Computational Geometry 2020/2021, Manuel Pagliuca, Matricola : 975169");
+	Window mainWindow("Computational Geometry 2020/2021, Manuel Pagliuca, Matricola : 975169", resWindow.getFullscreenMode(), resWindow.pickedResolution());
 
 	if (!mainWindow.initialise())
 	{
@@ -36,7 +35,7 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	GUI gui{mainWindow.getAspectRatio(), mainWindow.getWidth(), mainWindow.getHeight()};
+	GUI gui{ mainWindow.getAspectRatio(), mainWindow.getWidth(), mainWindow.getHeight() };
 	gui.setupContext(mainWindow.getWindowObject());
 
 	Scene scene = Scene(mainWindow.getProjectionMatrix());

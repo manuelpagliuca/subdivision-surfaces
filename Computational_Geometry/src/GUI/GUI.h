@@ -122,7 +122,7 @@ public:
 
 	~GUI();
 
-	void setupContext(GLFWwindow* window) const;
+	void setupContext(GLFWwindow* m_window) const;
 	void initFrame() const;
 	void renderData() const;
 	void destroyContext() const;
@@ -146,7 +146,7 @@ private:
 	/* imgui.ini */
 	static bool m_cache;
 
-	/* window data */
+	/* m_window data */
 	float m_aspectRatio{};
 	int m_width{};
 	int m_height{};
