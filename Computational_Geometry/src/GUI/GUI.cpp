@@ -45,9 +45,15 @@ void GUI::objectsPanel()
 			ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(120); ImGui::Text("Affine Transformations"); ImGui::NewLine();
 
 			/* rotations */
-			ImGui::SliderFloat("x", &m_objectParams[i].xRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-X"); ImGui::SameLine(); ImGui::Checkbox("Auto-X", &m_objectParams[i].autoRotX);
-			ImGui::SliderFloat("y", &m_objectParams[i].yRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-Y"); ImGui::SameLine(); ImGui::Checkbox("Auto-Y", &m_objectParams[i].autoRotY);
-			ImGui::SliderFloat("z", &m_objectParams[i].zRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-Z"); ImGui::SameLine(); ImGui::Checkbox("Auto-Z", &m_objectParams[i].autoRotZ);
+			ImGui::SliderFloat("x", &m_objectParams[i].xRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-X"); ImGui::SameLine();
+			ImGui::Checkbox("Auto-X", &m_objectParams[i].autoRotX);
+
+			ImGui::SliderFloat("y", &m_objectParams[i].yRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-Y"); ImGui::SameLine();
+			ImGui::Checkbox("Auto-Y", &m_objectParams[i].autoRotY);
+
+			ImGui::SliderFloat("z", &m_objectParams[i].zRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-Z"); ImGui::SameLine();
+			ImGui::Checkbox("Auto-Z", &m_objectParams[i].autoRotZ);
+			
 			ImGui::SliderFloat("rotSpeed", &m_objectParams[i].rotSpeed, 0.f, 1.f); ImGui::SameLine(labelSpace); ImGui::Text("Rotation Speed");
 			ImGui::NewLine();
 
