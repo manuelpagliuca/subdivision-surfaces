@@ -55,7 +55,7 @@ void GUI::objectsPanel()
 	for (unsigned int i = 0; i < m_objectParams.size(); i++) {
 		if (m_objectParams[i].toVisualize)
 		{
-			ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles-25); ImGui::Text("Affine Transformations"); ImGui::NewLine();
+			ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles); ImGui::Text("Transformations"); ImGui::NewLine();
 
 			/* rotations */
 			ImGui::SliderFloat("x", &m_objectParams[i].xRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-X"); ImGui::SameLine();
