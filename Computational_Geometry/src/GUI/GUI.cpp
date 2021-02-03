@@ -3,14 +3,28 @@
 // Init static variable for caching parameters
 bool GUI::m_cache = false;
 
+/* little function for visualizing a marker */
+static void HelpMarker(const char* desc)
+{
+	ImGui::TextDisabled("(?)");
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+		ImGui::TextUnformatted(desc);
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+}
+
 /* panel for editing object structure features */
 void GUI::objectsPanel()
 {
 	ImGuiWindowFlags window_flags{ ImGuiWindowFlags_NoResize };
-	ImGui::SetNextWindowSize(ImVec2(400.f, 600.f));
+	ImGui::SetNextWindowSize(ImVec2(440.f, 820.f));
 	ImGui::SetNextWindowPos(ImVec2(1450.f, 50.f), ImGuiCond_FirstUseEver);
 	ImGui::Begin("Object Panel", nullptr, window_flags);
-	ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Select object"); ImGui::NewLine();
+	ImGui::Separator(); ImGui::SameLine(labelTitles); ImGui::Text("Select object"); ImGui::NewLine();
 
 	ImGui::Combo("", &m_objectsIndices, "Cube\0Pyramid\0Icosahedron\0Prism\0Torus\0");
 
@@ -41,8 +55,7 @@ void GUI::objectsPanel()
 	for (unsigned int i = 0; i < m_objectParams.size(); i++) {
 		if (m_objectParams[i].toVisualize)
 		{
-			constexpr int labelSpace = 280;
-			ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(120); ImGui::Text("Affine Transformations"); ImGui::NewLine();
+			ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles-25); ImGui::Text("Affine Transformations"); ImGui::NewLine();
 
 			/* rotations */
 			ImGui::SliderFloat("x", &m_objectParams[i].xRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-X"); ImGui::SameLine();
@@ -53,22 +66,24 @@ void GUI::objectsPanel()
 
 			ImGui::SliderFloat("z", &m_objectParams[i].zRot, -5.f, 5.0f); ImGui::SameLine(labelSpace); ImGui::Text("Rot-Z"); ImGui::SameLine();
 			ImGui::Checkbox("Auto-Z", &m_objectParams[i].autoRotZ);
-			
-			ImGui::SliderFloat("rotSpeed", &m_objectParams[i].rotSpeed, 0.f, 1.f); ImGui::SameLine(labelSpace); ImGui::Text("Rotation Speed");
+
+			ImGui::SliderFloat("rotSpeed", &m_objectParams[i].rotSpeed, 0.f, 1.f); ImGui::SameLine(labelSpace); ImGui::Text("Rot. Speed");
+			ImGui::SameLine();
+			HelpMarker("Per il funzionamento di questo slider vanno selezionati gli assi su cui fare ruotare l'oggetto.");
 			ImGui::NewLine();
 
 			/* scalings */
-			ImGui::SliderFloat("scale", &m_objectParams[i].overallScale, 0.f, 2.0f);	ImGui::SameLine(labelSpace); ImGui::Text("Scale");
-			ImGui::SliderFloat("scale-x", &m_objectParams[i].xScale, 0.f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-X");
-			ImGui::SliderFloat("scale-y", &m_objectParams[i].yScale, 0.f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-Y");
-			ImGui::SliderFloat("scale-z", &m_objectParams[i].zScale, 0.f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-Z");
+			ImGui::SliderFloat("scale", &m_objectParams[i].overallScale, 0.1f, 2.0f);	ImGui::SameLine(labelSpace); ImGui::Text("Scale");
+			ImGui::SliderFloat("scale-x", &m_objectParams[i].xScale, 0.1f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-X");
+			ImGui::SliderFloat("scale-y", &m_objectParams[i].yScale, 0.1f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-Y");
+			ImGui::SliderFloat("scale-z", &m_objectParams[i].zScale, 0.1f, 2.0f); ImGui::SameLine(labelSpace); ImGui::Text("Scale-Z");
 			ImGui::NewLine();
 
 			/* translations */
 			ImGui::SliderFloat("pos-x", &m_objectParams[i].xPos, -.5f, +0.5f); ImGui::SameLine(labelSpace); ImGui::Text("Pos-X");
 			ImGui::SliderFloat("pos-y", &m_objectParams[i].yPos, -.5f, +0.5f); ImGui::SameLine(labelSpace); ImGui::Text("Pos-Y");
 			ImGui::SliderFloat("pos-z", &m_objectParams[i].zPos, -5.0f, 0.1f); ImGui::SameLine(labelSpace); ImGui::Text("Pos-Z");
-			ImGui::NewLine(); ImGui::NewLine(); ImGui::SameLine(120);
+			ImGui::NewLine(); ImGui::NewLine(); ImGui::SameLine(140);
 
 			if (ImGui::Button("Reset transformations"))
 			{
@@ -91,14 +106,26 @@ void GUI::objectsPanel()
 
 			if (i == GUI_OBJ::ICOSAHEDRON)
 			{
-				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Icosahedron settings"); ImGui::NewLine();
-				constexpr int labelSpace = 280;
+				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles-25); ImGui::Text("Icosahedron settings"); ImGui::NewLine();
 
 				ImGui::SliderInt("subdLevel", &m_objectParams[i].icosahedron.subdivisionLevel, 0, 4); ImGui::SameLine(labelSpace); ImGui::Text("Subdivision");
-				ImGui::SliderFloat("radIcoVert", &m_objectParams[i].icosahedron.radius, 0.f, 10.f); ImGui::SameLine(labelSpace); ImGui::Text("Icosahedron\n vertices");
+				ImGui::SliderFloat("radIcoVert", &m_objectParams[i].icosahedron.radius, 0.1f, 10.f); ImGui::SameLine(labelSpace); ImGui::Text("Icosahedron\n vertices");
+				ImGui::SameLine();
+				HelpMarker("Questo slider permette di aumentare il raggio dei 12 vertici originali dell'icosaedro.");
+
 				ImGui::SliderFloat("radMid1", &m_objectParams[i].icosahedron.midpointRadius.v1, -5.f, 5.f); ImGui::SameLine(labelSpace); ImGui::Text("Midpoints 1");
+				ImGui::SameLine();
+				HelpMarker("Questi tre slider permettono di modificare i raggi dei punti medi ottenuti durante la suddivisione dei triangoli originali.");
 				ImGui::SliderFloat("radMid2", &m_objectParams[i].icosahedron.midpointRadius.v2, -5.f, 5.f); ImGui::SameLine(labelSpace); ImGui::Text("Midpoints 2");
 				ImGui::SliderFloat("radMid3", &m_objectParams[i].icosahedron.midpointRadius.v3, -5.f, 5.f); ImGui::SameLine(labelSpace); ImGui::Text("Midpoints 3");
+
+				if (m_objectParams[i].icosahedron.midpointRadius.v1 != 1.f || m_objectParams[i].icosahedron.midpointRadius.v2 != 1.f || m_objectParams[i].icosahedron.midpointRadius.v1 != 1.f)
+				{
+					if (m_objectParams[i].icosahedron.subdivisionLevel == 0)
+					{
+						ImGui::TextColored(ImVec4(1.f, 0.f, 0.f, 1.f), "You are not using midpoints! \nSelect a subdivision level greater than 0.\n");
+					}
+				}
 
 				ImGui::NewLine(); ImGui::NewLine(); ImGui::SameLine(180);
 				if (ImGui::Button("Reset"))
@@ -113,8 +140,7 @@ void GUI::objectsPanel()
 			}
 			else if (i == GUI_OBJ::PRISM)
 			{
-				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Prism settings"); ImGui::NewLine();
-				constexpr int labelSpace = 280;
+				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles); ImGui::Text("Prism settings"); ImGui::NewLine();
 
 				ImGui::SliderInt("sectorCount", &m_objectParams[i].prism.sectorCount, 3, 100); ImGui::SameLine(labelSpace); ImGui::Text("Sector count");
 				ImGui::SliderInt("stackCount", &m_objectParams[i].prism.stackCount, 1, 10); ImGui::SameLine(labelSpace); ImGui::Text("Stack count");
@@ -135,8 +161,7 @@ void GUI::objectsPanel()
 			}
 			else if (i == GUI_OBJ::TORUS)
 			{
-				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Torus settings"); ImGui::NewLine();
-				constexpr int labelSpace = 280;
+				ImGui::NewLine(); ImGui::Separator(); ImGui::SameLine(labelTitles); ImGui::Text("Torus settings"); ImGui::NewLine();
 
 				ImGui::SliderFloat("Main radius", &m_objectParams[i].torus.mainRadius, 0.1f, 3.f); ImGui::SameLine(labelSpace); ImGui::Text("Main radius");
 				ImGui::SliderFloat("Tube radius", &m_objectParams[i].torus.tubeRadius, 0.1f, 3.f); ImGui::SameLine(labelSpace); ImGui::Text("Tube radius");
@@ -157,7 +182,7 @@ void GUI::objectsPanel()
 
 			if (m_tessParams.selectedShader == shader::TRIANG_TESS_SHADER)
 			{
-				ImGui::Separator(); ImGui::SameLine(140); ImGui::Text("Color settings");
+				ImGui::Separator(); ImGui::SameLine(labelTitles); ImGui::Text("Color settings");
 				ImGui::NewLine(); ImGui::SameLine(90); ImGui::RadioButton("Interpolation", &m_objectParams[i].colorMode, 0);
 				ImGui::SameLine(); ImGui::RadioButton("Solid color", &m_objectParams[i].colorMode, 1);
 				ImGui::NewLine();

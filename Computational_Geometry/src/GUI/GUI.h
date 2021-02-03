@@ -153,6 +153,8 @@ private:
 
 	/* handle objects panel*/
 	int m_objectsIndices{ 0 };
+	int const labelSpace = 300;
+	int const labelTitles = 170;
 
 	/* hold objects GUI params */
 	std::map<int, ObjectGUIParams> m_objectParams{};
