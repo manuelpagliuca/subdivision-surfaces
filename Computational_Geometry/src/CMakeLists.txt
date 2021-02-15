@@ -60,5 +60,5 @@ target_include_directories(Application PRIVATE ../Dependencies/GLM)
 target_include_directories(Application PRIVATE ../Dependencies)
 
 # Linking delle library (conan)
-target_link_libraries(Application PRIVATE glm::glm glfw::glfw GLEW::GLEW)
+target_link_libraries(Computational_Geometry PRIVATE glm::glm glfw::glfw GLEW::GLEW)
 
