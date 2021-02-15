@@ -10,18 +10,18 @@ This project was developed with the intent of study different techniques for the
 - GLFW
 - GLEW
 
-Both of these libraries are integrated with CONAN, you must have installed ![CMake](https://cmake.org/download/) and ![CONAN](https://conan.io/downloads.html), then follow the installation instructions.
+Both of these libraries are integrated with CONAN, you must have installed [CMake](https://cmake.org/download/) and [CONAN](https://conan.io/downloads.html), then follow the installation instructions.
 
 ## Install
 
 1. Access by terminal to the folder *'Computational_Geometry'*.
 2. Then run this command:
 
-```cmake src -DCMAKE_BUILD_TYPE=Release -B ../build/```
+>```cmake src -DCMAKE_BUILD_TYPE=Release -B ../build/```
 
 3. Once the process is over move to the folder *'../build'*, and run this command:
 
-```make```
+>```make```
 
 4. Once the building is over, copy the executable file *'/bin/Application'* inside the folder  *'Computational_Geometry_2021/Computational_Geometry/'*.
 
@@ -29,4 +29,4 @@ Both of these libraries are integrated with CONAN, you must have installed ![CMa
 
 6. Run the command:
 
-```./bin/Application```
+>```./bin/Application```
