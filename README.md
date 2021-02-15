@@ -1,4 +1,4 @@
-# Project for Computational Geometry course, @UNIMI A.Y.2020/2021 
+# Project for Computational Geometry course, @UNIMI AY 2020/2021 
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 ![APM](https://img.shields.io/appveyor/build/gruntjs/grunt)
 ![APM](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
