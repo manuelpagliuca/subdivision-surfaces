@@ -25,15 +25,15 @@ void Icosahedron::updateRadius()
 
 std::vector<float> Icosahedron::computeIcosahedronVertices()
 {
-	const float PI = acosf(-1.f);
-	const float H_ANGLE = PI / 180.f * 72.f;    // horizontal rotation di 72°
-	const float V_ANGLE = atanf(1.0f / 2.f);    // vertical rotation (elevation) of 26.565°
+	float const PI = acosf(-1.f);
+	float const H_ANGLE = PI / 180.f * 72.f;    // horizontal rotation di 72°
+	float const V_ANGLE = atanf(1.0f / 2.f);    // vertical rotation (elevation) of 26.565°
 
 	float hAngle1 = -PI / 2.f - H_ANGLE / 2.f;  // 1st row starts at -126°
 	float hAngle2 = -PI / 2.f;                  // 2nd row starts at -90°
 
-	const float z = m_radius * sinf(V_ANGLE);
-	const float xy = m_radius * cosf(V_ANGLE);
+	float const z = m_radius * sinf(V_ANGLE);
+	float const xy = m_radius * cosf(V_ANGLE);
 
 	std::vector<float> icoVertices(12 * 3);     // 12 m_vertices
 
@@ -77,9 +77,9 @@ void Icosahedron::buildVerticesFlat()
 	std::vector<float>().swap(m_vertices);
 	std::vector<unsigned int>().swap(m_indices);
 
-	const float* v0 = &tmpVertices[0];       // 1st vertex
-	const float* v11 = &tmpVertices[11 * 3]; // 12th vertex
-	const float* v1, * v2, * v3, * v4;		 // 2nd row m_vertices
+	float const* v0 = &tmpVertices[0];       // 1st vertex
+	float const* v11 = &tmpVertices[11 * 3]; // 12th vertex
+	float const* v1, * v2, * v3, * v4;		 // 2nd row m_vertices
 
 	unsigned index = 0;
 
@@ -143,13 +143,13 @@ void Icosahedron::subdivideVerticesFlat()
 		m_indices.clear();
 
 		index = 0;
-		const int m_indexCount = static_cast<const int>(tmpIndices.size());
+		int const m_indexCount = static_cast<int const>(tmpIndices.size());
 
 		for (j = 0; j < m_indexCount; j += 3)
 		{
 			// avoiding arithmetic overflow
-			const unsigned int j_2 = j + 1;
-			const unsigned int j_3 = j + 2;
+			unsigned const j_2 = j + 1;
+			unsigned const j_3 = j + 2;
 
 			v1 = &tmpVertices[static_cast<long long>(tmpIndices[j]) * 3L];
 			v2 = &tmpVertices[static_cast<long long>(tmpIndices[j_2]) * 3L];

@@ -9,7 +9,7 @@ class Mesh
 {
 public:
 	Mesh() = default;
-	~Mesh();
+	virtual ~Mesh();
 
 	/* member function */
 	void createMesh(const GLfloat* m_vertices, const unsigned int* m_indices, const unsigned numOfVertices, const unsigned numOfIndices);
@@ -26,7 +26,11 @@ public:
 	void setVertexCount(const int t_vertexCount);
 	void setIndexCount(const int t_indexCount);
 
-protected:
+	GLuint getVAO() const { return VAO; }
+	GLuint getVBO() const { return VBO; }
+	GLuint getIBO() const { return IBO; }
+
+private:
 	GLuint VAO{};
 	GLuint VBO{};
 	GLuint IBO{};

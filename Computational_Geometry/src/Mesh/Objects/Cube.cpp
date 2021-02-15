@@ -49,9 +49,9 @@ Cube::Cube(CubeMeshType meshType)
 
 void Cube::renderPatch(const bool wireframe_mode)
 {
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBindVertexArray(Mesh::getVAO());
+	glBindBuffer(GL_ARRAY_BUFFER, Mesh::getVBO());
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Mesh::getIBO());
 
 	glPolygonMode(GL_FRONT_AND_BACK, wireframe_mode ? GL_LINE : GL_FILL);
 	glDrawElements(GL_TRIANGLES, 4, GL_UNSIGNED_INT, 0);
@@ -59,8 +59,4 @@ void Cube::renderPatch(const bool wireframe_mode)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-}
-
-Cube::~Cube()
-{
 }

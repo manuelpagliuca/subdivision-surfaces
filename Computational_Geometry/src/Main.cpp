@@ -53,7 +53,7 @@ int main()
 		/* init gui */
 		gui.initFrame();
 
-		ImGui::ShowDemoWindow();
+		//ImGui::ShowDemoWindow();
 
 		/* gui panels */
 		gui.objectsPanel();

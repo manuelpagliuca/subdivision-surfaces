@@ -11,6 +11,6 @@ struct Cube : public Mesh
 {
 	Cube() = default;
 	Cube(CubeMeshType meshType);
-	~Cube();
+	~Cube() = default;
 	virtual void renderPatch(const bool wireframe_mode);
 };
