@@ -48,16 +48,17 @@ set(PROJECT_IMGUI_FILES
 
 list(TRANSFORM PROJECT_IMGUI_FILES PREPEND "../Dependencies/imgui/")
 
-add_executable (Computational_Geometry ${Foo_SOURCES} ${PROJECT_IMGUI_FILES})
+add_executable (Application ${Foo_SOURCES} ${PROJECT_IMGUI_FILES})
 
 message(STATUS $(Foo_SOURCES))
 
 # Include delle directory
 
-target_include_directories(FooExe PRIVATE ${Foo_INCLUDE_DIRS})
-target_include_directories(FooExe PRIVATE ../Dependencies/GLM)
-target_include_directories(FooExe PRIVATE ../Dependencies)
+target_include_directories(Application PRIVATE ${Foo_INCLUDE_DIRS})
+target_include_directories(Application PRIVATE ${Foo_INCLUDE_DIRS})
+target_include_directories(Application PRIVATE ../Dependencies/GLM)
+target_include_directories(Application PRIVATE ../Dependencies)
 
 # Linking delle library (conan)
-target_link_libraries(FooExe PRIVATE glm::glm glfw::glfw GLEW::GLEW)
+target_link_libraries(Application PRIVATE glm::glm glfw::glfw GLEW::GLEW)
 
