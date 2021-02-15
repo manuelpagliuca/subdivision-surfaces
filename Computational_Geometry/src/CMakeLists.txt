@@ -48,7 +48,7 @@ set(PROJECT_IMGUI_FILES
 
 list(TRANSFORM PROJECT_IMGUI_FILES PREPEND "../Dependencies/imgui/")
 
-add_executable (FooExe ${Foo_SOURCES} ${PROJECT_IMGUI_FILES})
+add_executable (Computational_Geometry ${Foo_SOURCES} ${PROJECT_IMGUI_FILES})
 
 message(STATUS $(Foo_SOURCES))
 
