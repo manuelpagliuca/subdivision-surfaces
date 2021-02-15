@@ -1,10 +1,11 @@
-# Computational Geometry Course Project 
-![APM](https://img.shields.io/apm/l/vim-mode)
+# Project for Computational Geometry course, @UNIMI A.Y.2020/2021 
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+![APM](https://img.shields.io/appveyor/build/gruntjs/grunt)
+![APM](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:pagliuca.manuel@gmail.com)
 
 ## Scope
-Project for the course of Computational Geometry 2020/2021 @UNIMI
-
-This project was developed with the intent of study different techniques for the triangulations and tessellations of geometric shapes with OpenGL.
+This project was developed with the intent of study different techniques for the triangulations and tessellations of geometric shapes using OpenGL.
 
 ## Dependencies
 - GLFW
