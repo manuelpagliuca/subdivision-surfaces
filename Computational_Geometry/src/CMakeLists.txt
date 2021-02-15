@@ -54,10 +54,11 @@ message(STATUS $(Foo_SOURCES))
 
 # Include delle directory
 
-target_include_directories(FooExe PRIVATE ${Foo_INCLUDE_DIRS})
-target_include_directories(FooExe PRIVATE ../Dependencies/GLM)
-target_include_directories(FooExe PRIVATE ../Dependencies)
+target_include_directories(Computational_Geometry PRIVATE ${Foo_INCLUDE_DIRS})
+target_include_directories(Computational_Geometry PRIVATE ${Foo_INCLUDE_DIRS})
+target_include_directories(Computational_Geometry PRIVATE ../Dependencies/GLM)
+target_include_directories(Computational_Geometry PRIVATE ../Dependencies)
 
 # Linking delle library (conan)
-target_link_libraries(FooExe PRIVATE glm::glm glfw::glfw GLEW::GLEW)
+target_link_libraries(Computational_Geometry PRIVATE glm::glm glfw::glfw GLEW::GLEW)
 
