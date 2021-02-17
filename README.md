@@ -1,5 +1,5 @@
 # Project for Computational Geometry course, @UNIMI AY 2020/2021 
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/manuelpagliuca/Computational_Geometry_2021/blob/main/LICENSE)
 ![APM](https://img.shields.io/appveyor/build/gruntjs/grunt)
 ![APM](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:pagliuca.manuel@gmail.com)
