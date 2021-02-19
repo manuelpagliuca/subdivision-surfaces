@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+.vs/
+
 # Headers and Dependencies
 Computational_Geometry/Dependencies/GLEW
 Computational_Geometry/Dependencies/GLFW
@@ -14,6 +16,7 @@ Computational_Geometry/Release
 Debug/
 Release/
 x64/
+
 
 # Linux Build
 Computational_Geometry/CMakeCache.txt
