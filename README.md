@@ -7,6 +7,8 @@
 ## Scope
 This project was developed with the intent of study different techniques for the triangulations and tessellations of geometric shapes using OpenGL.
 
+This is the Mac OS version of the project, since OpenGL isn't anymore well supported (in favor of Metal) on these machines i had to downgrade the project to OpenGL 3.3.0 Version. All the new features from the 4.0 version (like tessellation)aren't there anymore.
+
 ## Dependencies
 - GLFW
 - GLEW
