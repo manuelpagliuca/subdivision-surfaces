@@ -3,39 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Headers and Dependencies
-Computational_Geometry/Debug
-Computational_Geometry/Release
-build/
-
-# Releases and Debug
-Debug/
-Release/
-x64/
-
-# Linux Build
-Computational_Geometry/CMakeCache.txt
-Computational_Geometry/conan.lock
-Computational_Geometry/conan.cmake
-Computational_Geometry/cmake_install.cmake
-Computational_Geometry/conanbuildinfo.cmake
-Computational_Geometry/conanbuildinfo.txt
-Computational_Geometry/conaninfo.txt
-Computational_Geometry/FindGLEW.cmake
-Computational_Geometry/Findglfw3.cmake
-Computational_Geometry/Findglm.cmake
-Computational_Geometry/Findglu.cmake
-Computational_Geometry/Findopengl_system.cmake
-Computational_Geometry/Findxorg.cmake
-Computational_Geometry/graph_info.json
-Computational_Geometry/Makefile
-bin/
-CMakeFiles/
-
-# ImguiConfig
-Computational_Geometry/imgui.ini
-Computational_Geometry/src/imgui.ini
-
 # User-specific files
 *.rsuser
 *.suo
