@@ -1,4 +1,4 @@
-# Project for Computational Geometry course, @UNIMI AY 2020/2021 
+# Project for Computational Geometry course, @UNIMI AY 2020/2021 - Mac OS
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/manuelpagliuca/Computational_Geometry_2021/blob/main/LICENSE)
 ![APM](https://img.shields.io/appveyor/build/gruntjs/grunt)
 ![APM](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
