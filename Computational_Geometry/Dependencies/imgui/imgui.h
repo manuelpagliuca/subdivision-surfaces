@@ -52,10 +52,10 @@ Index of this file:
 //-----------------------------------------------------------------------------
 
 // Includes
-#include <float.h>                  // FLT_MIN, FLT_MAX
-#include <stdarg.h>                 // va_list, va_start, va_end
-#include <stddef.h>                 // ptrdiff_t, NULL
-#include <string.h>                 // memset, memmove, memcpy, strlen, strchr, strcpy, strcmp
+#include <cfloat>                  // FLT_MIN, FLT_MAX
+#include <cstdarg>                 // va_list, va_start, va_end
+#include <cstddef>                 // ptrdiff_t, NULL
+#include <cstring>                 // memset, memmove, memcpy, strlen, strchr, strcpy, strcmp
 
 // Version
 // (Integer encoded as XYYZZ for use in #if preprocessor conditionals. Work in progress versions typically starts at XYY99 then bounce up to XYY00, XYY01 etc. when release tagging happens)
@@ -75,7 +75,7 @@ Index of this file:
 
 // Helper Macros
 #ifndef IM_ASSERT
-#include <assert.h>
+#include <cassert>
 #define IM_ASSERT(_EXPR)            assert(_EXPR)                               // You can override the default assert handler by editing imconfig.h
 #endif
 #if !defined(IMGUI_USE_STB_SPRINTF) && (defined(__clang__) || defined(__GNUC__))
@@ -199,7 +199,7 @@ typedef unsigned int        ImU32;  // 32-bit unsigned integer (often used to st
 typedef signed   __int64    ImS64;  // 64-bit signed integer (pre and post C++11 with Visual Studio)
 typedef unsigned __int64    ImU64;  // 64-bit unsigned integer (pre and post C++11 with Visual Studio)
 #elif (defined(__clang__) || defined(__GNUC__)) && (__cplusplus < 201100)
-#include <stdint.h>
+#include <cstdint>
 typedef int64_t             ImS64;  // 64-bit signed integer (pre C++11)
 typedef uint64_t            ImU64;  // 64-bit unsigned integer (pre C++11)
 #else

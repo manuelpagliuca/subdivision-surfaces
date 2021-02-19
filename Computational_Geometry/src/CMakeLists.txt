@@ -21,7 +21,6 @@ find_package(glm)
 find_package(glfw3)
 find_package(GLEW)
 
-
 set (Foo_INCLUDE_DIRS "")
 foreach (_headerFile ${Foo_HEADERS})
     get_filename_component(_dir ${_headerFile} PATH)
@@ -60,5 +59,4 @@ target_include_directories(Application PRIVATE ../Dependencies/GLM)
 target_include_directories(Application PRIVATE ../Dependencies)
 
 # Linking delle library (conan)
-target_link_libraries(Computational_Geometry PRIVATE glm::glm glfw::glfw GLEW::GLEW)
-
+target_link_libraries(Application PRIVATE glm::glm glfw::glfw GLEW::GLEW)
