@@ -4,6 +4,9 @@
 ![APM](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:pagliuca.manuel@gmail.com)
 
+## WARNING
+The project couldn't work for Mac users! This due to the new Metal API that is replacing OpenGL, sadly i can't Debug this application on a machine that runs Mac OS, so i didn't manage to fix-it, but i'm open for any pull request!
+
 ## Scope
 This project was developed with the intent of study different techniques for the triangulations and tessellations of geometric shapes using OpenGL.
 
