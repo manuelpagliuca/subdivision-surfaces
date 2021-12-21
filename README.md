@@ -11,7 +11,7 @@
 This is a project application for the course of **Computational Geometry** from the University of Milan, held by Prof. Alzati, A.Y. 2020/2021. The application
 was developed with the intent of study different techniques for the triangulations and tessellations of geometric shapes using OpenGL. The
 math and the algorithms are explained in depth at this [website](http://www.mat.unimi.it/users/alzati/Geometria_Computazionale_98-99/apps/trietas/index.html) held by the department of mathematics (I highly suggest
-to visit if you are interested in the topic).
+to visit if you are interested in the topic ☺).
 
 ## Dependencies
 
