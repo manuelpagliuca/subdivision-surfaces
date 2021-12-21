@@ -6,7 +6,6 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:pagliuca.manuel@gmail.com)
 
 ![alt text](rsz_intro.png)
-![alt text](rsz_obj_panel.png)
 ![alt text](rsz_icosphere.png)
 
 This is a project application for the course of **Computational Geometry** from the University of Milan, held by Prof. Alzati, A.Y. 2020/2021. The application
