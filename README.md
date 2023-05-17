@@ -1,4 +1,4 @@
-# Tessellation & Triangulation (OpenGL App)
+# Subdivision of surfaces
 
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/manuelpagliuca/Computational_Geometry_2021/blob/main/LICENSE)
 ![APM](https://img.shields.io/appveyor/build/gruntjs/grunt)
@@ -17,6 +17,8 @@ to visit if you are interested in the topic ☺).
 
 - GLFW
 - GLEW
+- GLM
+- 
 
 Both of these libraries are integrated with CONAN, you must have installed [CMake](https://cmake.org/download/) and [CONAN](https://conan.io/downloads.html), then follow the installation instructions.
 
